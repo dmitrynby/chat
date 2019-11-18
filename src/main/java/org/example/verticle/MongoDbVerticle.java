@@ -2,16 +2,12 @@ package org.example.verticle;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.AsyncResult;
-import io.vertx.core.Vertx;
 import io.vertx.core.eventbus.Message;
-import io.vertx.core.file.OpenOptions;
 import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonObject;
-import io.vertx.ext.mongo.GridFSOutputStream;
 import io.vertx.ext.mongo.GridFsUploadOptions;
 import io.vertx.ext.mongo.MongoClient;
 import io.vertx.ext.mongo.MongoGridFsClient;
-import io.vertx.ext.web.FileUpload;
 import org.example.data.FileUploaded;
 
 public class MongoDbVerticle extends AbstractVerticle {
