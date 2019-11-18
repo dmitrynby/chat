@@ -58,9 +58,7 @@ public class FileServerVerticle extends AbstractVerticle {
                         .putHeader(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=" + metaData.getString("fileName"))
                         .putHeader(HttpHeaders.TRANSFER_ENCODING, "chunked");
 
-                gridFsClient.downloadById(routingContext.response(), id, handler -> {
-                    routingContext.response().end();
-                });
+                gridFsClient.downloadById(routingContext.response(), id, handler -> routingContext.response().end());
 
             } else {
                 serveError(routingContext, result);
@@ -94,6 +92,7 @@ public class FileServerVerticle extends AbstractVerticle {
                             .end(new JsonObject().put("id", event.result()).toString());
                 } else {
                     System.out.println("ERROR MongoDB: " + event.cause());
+                    serveError(routingContext, event);
                 }
             });
 
