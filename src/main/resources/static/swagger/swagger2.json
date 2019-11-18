@@ -1,0 +1,102 @@
+{
+  "swagger": "3.0",
+  "info": {},
+  "host": "localhost:8081",
+  "basePath": "",
+  "tags": [
+    {
+      "name": "file(eventBus)",
+      "description": "Хранилище файлов через eventBus"
+    }
+  ],
+  "schemes" : [ "http" ],
+  "paths": {
+    "/file2/{id}": {
+      "get": {
+        "tags": [
+          "file(eventBus)"
+        ],
+        "summary": "Поиск по ID",
+        "description": "Возвращает файл по его ID",
+        "operationId": "getById",
+        "produces": [
+          "application/octet-stream",
+          "image/jpeg"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID Файла",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Файл найден",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Неверный ID файла"
+          },
+          "404": {
+            "description": "Файл не найден"
+          }
+        }
+      }
+    },
+    "/file2": {
+      "post": {
+        "tags": [
+          "file(eventBus)"
+        ],
+        "summary": "загрузка файла на сервер",
+        "description": "",
+        "operationId": "uploadFile",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "file",
+            "in": "formData",
+            "description": "Файл для загрузки",
+            "required": true,
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Файл успешно загружен",
+            "schema" : {
+              "$ref" : "#/definitions/ApiResponse"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ApiResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
